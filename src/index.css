@@ -1,0 +1,33 @@
+/* 🔥 Fix modal container issues */
+.react-responsive-modal-container {
+  align-items: flex-start !important;
+  overflow: auto !important;
+}
+
+/* Modal box */
+.custom-modal {
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: visible;
+}
+
+/* 🔥 AG Grid container (MANDATORY) */
+.grid-container {
+  height: 400px;
+  width: 100%;
+}
+
+/* iOS smooth scroll */
+.grid-container {
+  -webkit-overflow-scrolling: touch;
+}
+.grid-container {
+  height: 400px;
+  width: 100%;
+}
+
+@media only screen  and (max-width:767px) {
+  .custom-modal {
+  width: 76%;}
+}
