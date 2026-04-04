@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -79,7 +79,7 @@ const styles2 = {
     padding: "20px",
   },
   overlay: {
-    position: "fixed", // ❌ key problem
+    position: "fixed",
     inset: 0,
     background: "rgba(0,0,0,0.4)",
   },
@@ -91,14 +91,33 @@ const styles2 = {
   },
   modalBody: {
     height: "100%",
-    overflow: "auto", // ❌ scroll inside fixed
+    overflow: "auto", // ❌ still problematic
     WebkitOverflowScrolling: "touch",
+  },
+  content: {
+    width: "1200px", // 👉 forces horizontal scroll
+    padding: "10px",
+  },
+  row: {
+    whiteSpace: "nowrap",
+    marginBottom: "10px",
+    border: "1px solid #ccc",
   },
 };
 
-export const BrokenFixed =  function () {
+export const BrokenFixed = function () {
+  const navigate = useNavigate();
+
   return (
     <div style={styles2.page}>
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/")}
+        style={{ position: "fixed", top: 10, left: 10, zIndex: 1000 }}
+      >
+        ← Back
+      </button>
+
       {/* Background content */}
       <div style={styles2.background}>
         {Array.from({ length: 50 }).map((_, i) => (
@@ -110,21 +129,24 @@ export const BrokenFixed =  function () {
       <div style={styles2.overlay}>
         <div style={styles2.modal}>
           <div style={styles2.modalBody}>
-            {Array.from({ length: 50 }).map((_, i) => (
-              <p key={i}>Modal Content {i + 1}</p>
-            ))}
+            <div style={styles2.content}>
+              {Array.from({ length: 50 }).map((_, i) => (
+                <div key={i} style={styles2.row}>
+                  Row {i + 1} → → → → → → → → → → →
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
-
+};
 
 
 const styles3 = {
   overlay: {
-    position: "fixed", // ✅ still fixed
+    position: "fixed",
     inset: 0,
     background: "rgba(0,0,0,0.4)",
   },
@@ -137,15 +159,26 @@ const styles3 = {
   },
   modalBody: {
     flex: 1,
-    overflow: "auto", // ✅ ONLY scroll here
+    overflow: "auto", // ✅ single scroll owner
     WebkitOverflowScrolling: "touch",
+    overscrollBehavior: "contain", // ✅ prevents scroll chaining
     padding: "20px",
+  },
+  content: {
+    width: "1200px", // 👉 horizontal scroll
+  },
+  row: {
+    whiteSpace: "nowrap",
+    marginBottom: "10px",
+    border: "1px solid #ccc",
   },
 };
 
-export const FixedCorrect =  function () {
+export const FixedCorrect = function () {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    document.body.style.overflow = "hidden"; // ✅ lock background
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -153,14 +186,25 @@ export const FixedCorrect =  function () {
 
   return (
     <div style={styles3.overlay}>
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/")}
+        style={{ position: "fixed", top: 10, left: 10, zIndex: 1000 }}
+      >
+        ← Back
+      </button>
+
       <div style={styles3.modal}>
         <div style={styles3.modalBody}>
-          {Array.from({ length: 50 }).map((_, i) => (
-            <p key={i}>Modal Content {i + 1}</p>
-          ))}
+          <div style={styles3.content}>
+            {Array.from({ length: 50 }).map((_, i) => (
+              <div key={i} style={styles3.row}>
+                Row {i + 1} → → → → → → → → → → →
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
-}
-
+};
