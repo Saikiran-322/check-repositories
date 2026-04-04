@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useEffect} from "react";
+
 
 const styles = {
   container: {
@@ -68,3 +69,98 @@ export const Broken = function () {
     </div>
   );
 }
+
+
+const styles2 = {
+  page: {
+    height: "200vh",
+  },
+  background: {
+    padding: "20px",
+  },
+  overlay: {
+    position: "fixed", // ❌ key problem
+    inset: 0,
+    background: "rgba(0,0,0,0.4)",
+  },
+  modal: {
+    height: "80vh",
+    margin: "40px",
+    background: "white",
+    overflow: "hidden",
+  },
+  modalBody: {
+    height: "100%",
+    overflow: "auto", // ❌ scroll inside fixed
+    WebkitOverflowScrolling: "touch",
+  },
+};
+
+export const BrokenFixed =  function () {
+  return (
+    <div style={styles2.page}>
+      {/* Background content */}
+      <div style={styles2.background}>
+        {Array.from({ length: 50 }).map((_, i) => (
+          <p key={i}>Background Content {i + 1}</p>
+        ))}
+      </div>
+
+      {/* Fixed Modal */}
+      <div style={styles2.overlay}>
+        <div style={styles2.modal}>
+          <div style={styles2.modalBody}>
+            {Array.from({ length: 50 }).map((_, i) => (
+              <p key={i}>Modal Content {i + 1}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+const styles3 = {
+  overlay: {
+    position: "fixed", // ✅ still fixed
+    inset: 0,
+    background: "rgba(0,0,0,0.4)",
+  },
+  modal: {
+    height: "80vh",
+    margin: "40px",
+    background: "white",
+    display: "flex",
+    flexDirection: "column",
+  },
+  modalBody: {
+    flex: 1,
+    overflow: "auto", // ✅ ONLY scroll here
+    WebkitOverflowScrolling: "touch",
+    padding: "20px",
+  },
+};
+
+export const FixedCorrect =  function () {
+  useEffect(() => {
+    document.body.style.overflow = "hidden"; // ✅ lock background
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  return (
+    <div style={styles3.overlay}>
+      <div style={styles3.modal}>
+        <div style={styles3.modalBody}>
+          {Array.from({ length: 50 }).map((_, i) => (
+            <p key={i}>Modal Content {i + 1}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+

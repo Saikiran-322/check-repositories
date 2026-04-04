@@ -1,5 +1,5 @@
 import ModalWithGrid from "./ModalWithGrid";
-import {Working,Broken} from "./Scrolls"
+import {Working,Broken,FixedCorrect,BrokenFixed} from "./Scrolls"
 
 function App() {
   return (
@@ -11,6 +11,10 @@ function App() {
       <Working/>
       <h2>Broken scroll, with nesting scrolls</h2>
       <Broken/>
+      <h2>Broken scroll, with position fixed</h2>
+      <BrokenFixed/>
+      {/* <h2>Working scroll, with position absolute</h2>
+      <FixedCorrect/> */}
     </div>
   );
 }
