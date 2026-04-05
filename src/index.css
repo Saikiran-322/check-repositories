@@ -9,7 +9,6 @@
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
-  overflow: hidden;
 }
 
 .custom-container{
@@ -35,7 +34,9 @@
 @media only screen  and (max-width:767px) {
   .custom-modal {
   width: 76%;
-display: flex;
+display: flex !important;
 flex-direction: column;
-align-self: center;}
+align-self: center;
+  overflow: hidden !important;
+}
 }
