@@ -61,6 +61,7 @@ const rowData = useMemo(() => [
         center
         classNames={{
           modal: "custom-modal",
+          modalContainer:"custom-container"
         }}
       >
         <h2>User Data</h2>
