@@ -9,7 +9,7 @@
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .custom-container{
