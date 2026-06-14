@@ -21,7 +21,17 @@ const styles = {
 
 export const Working = function () {
   return (
-    <div style={styles.container}>
+    <>
+<p>This is to check the support mail</p>
+<div>
+  <a href="mailto:support@company.com">support@company.com</a>
+</div>
+
+<i onClick={()=>{
+  navigator.clipboard.writeText("support@company.com")
+}}/>
+
+        <div style={styles.container}>
       <div style={styles.content}>
         {Array.from({ length: 50 }).map((_, i) => (
           <div key={i} style={styles.row}>
@@ -31,6 +41,8 @@ export const Working = function () {
         ))}
       </div>
     </div>
+    </>
+
   );
 }
 
